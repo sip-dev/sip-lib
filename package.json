@@ -1,0 +1,27 @@
+{
+  "name": "sip-lib",
+  "version": "0.0.1",
+  "description": "lib",
+  "author": "sip",
+  "homepage": "https://github.com/winpzs/sip-lib/",
+  "bugs": {
+    "url": "https://github.com/winpzs/sip-lib/issues"
+  },
+  "engines": {
+    "node": ">= 4.2.1",
+    "npm": ">= 3"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "ng test -sr -sm=false",
+    "build": "rimraf dist && tsc && copy package.npm.json dist\\\\package.json /y",
+    "npmpublic": "npm run build && npm pu ./dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "~6.0.60",
+    "rimraf": "^2.6.2",
+    "rxjs": "^5.5.5",
+    "typescript": "~2.6.0"
+  }
+}
