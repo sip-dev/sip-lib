@@ -15,7 +15,7 @@
   "scripts": {
     "test": "ng test -sr -sm=false",
     "build": "rimraf dist && tsc && copy package.npm.json dist\\\\package.json /y",
-    "npmpublic": "npm run build && npm pu ./dist"
+    "npmpublish": "npm run build && npm pu ./dist"
   },
   "dependencies": {},
   "devDependencies": {
