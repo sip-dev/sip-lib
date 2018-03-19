@@ -156,13 +156,41 @@ export class Lib {
         }
     }
 
-    static extend(obj: Object, ...args: Object[]): Object {
+    /**
+     * 扩展obj, 返回obj
+     * @param obj 扩展到Obj
+     * @param args 扩展源
+     */
+    static extend(obj: object, ...args: object[]): object {
         if (obj) {
-            Lib.each(args, function (p: Object) {
+            Lib.each(args, function (p: object) {
                 p && Lib.eachProp(p, function (item: string, name: string) { obj[name] = item; });
             });
         }
         return obj;
+    }
+
+    /**
+     * 同步附值, 返回dest
+     * @param dest 附值到
+     * @param from 附值来源
+     */
+    static assign(dest: object, from: object) {
+        if (from) {
+            Lib.eachProp(from, function (item, key) {
+                dest[key] = item;
+                Object.defineProperty(from, key, {
+                    enumerable: true, configurable: true,
+                    get: function () {
+                        return dest[key];
+                    },
+                    set: function (value) {
+                        dest[key] = value;
+                    }
+                });
+            });
+        }
+        return dest;
     }
 
     static makeAutoId() {
