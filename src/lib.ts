@@ -174,22 +174,37 @@ export class Lib {
      * 同步附值, 返回dest
      * @param dest 附值到
      * @param from 附值来源
+     * @example syncPropertys(new User(), {name:'aaa'});
      */
-    static assign(dest: object, from: object) {
+    static syncPropertys(dest: object, from: object) {
         if (from) {
             Lib.eachProp(from, function (item, key) {
-                dest[key] = item;
-                Object.defineProperty(from, key, {
-                    enumerable: true, configurable: true,
-                    get: function () {
-                        return dest[key];
-                    },
-                    set: function (value) {
-                        dest[key] = value;
-                    }
-                });
+                Lib.syncProperty(dest, key, from);
             });
         }
+        return dest;
+    }
+
+    /**
+     * 同步附值, 返回dest
+     * @param dest 附值到
+     * @param destKey 
+     * @param from 附值来源
+     * @param fromKey 
+     * @example syncProperty(new User(), 'name', obj, 'myName');
+     */
+    static syncProperty(dest: object, destKey: string, from: object, fromKey?: string) {
+        fromKey || (fromKey = destKey);
+        dest[destKey] = from[fromKey];
+        Object.defineProperty(from, fromKey, {
+            enumerable: true, configurable: true,
+            get: function () {
+                return dest[destKey];
+            },
+            set: function (value) {
+                dest[destKey] = value;
+            }
+        });
         return dest;
     }
 
