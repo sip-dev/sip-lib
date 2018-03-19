@@ -1,7 +1,7 @@
 
 # 更新
 
-## 0.0.2 (none)
+## 0.0.2
 
 * ADD: Lib.syncPropertys And Lib.syncProperty
 * Change: rxjs.breakOff to pipe
