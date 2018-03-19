@@ -7,7 +7,7 @@ let undef;
 
 export declare function cacheToObject<T>(this: Observable<T>, obj: object, key: string | object): Observable<T>;
 export declare function toValue<T>(this: Observable<T>): T;
-export declare function breakOff<T>(this: Observable<T>, callback: () => boolean): Observable<T>;
+// export declare function breakOff<T>(this: Observable<T>, callback: () => boolean): Observable<T>;
 
 declare module 'rxjs/Observable' {
     interface Observable<T> {
@@ -15,19 +15,36 @@ declare module 'rxjs/Observable' {
         cacheToObject: typeof cacheToObject;
         /**返回值，异步无效 */
         toValue: typeof toValue;
-        /**中断 */
-        breakOff: typeof breakOff
+        // /**中断 */
+        // breakOff: typeof breakOff
     }
 }
+
 Observable.prototype.toValue = function () {
     let value;
     this.subscribe(item => value = item);
     return value;
 };
 
-Observable.prototype.breakOff = function (callback: () => boolean) {
-    return Observable.create((observer) => {
-        this.subscribe({
+// Observable.prototype.breakOff = function (callback: () => boolean) {
+//     return Observable.create((observer) => {
+//         this.subscribe({
+//             next: function (r) {
+//                 !callback() && observer.next(r);
+//             },
+//             error: function (r) {
+//                 !callback() && observer.error(r);
+//             },
+//             complete: function () {
+//                 !callback() && observer.complete();
+//             }
+//         });
+//     });
+// };
+
+const breakOff = (callback: () => boolean) => <T>(source: Observable<T>) =>
+    new Observable<T>(observer => {
+        source.subscribe({
             next: function (r) {
                 !callback() && observer.next(r);
             },
@@ -39,7 +56,6 @@ Observable.prototype.breakOff = function (callback: () => boolean) {
             }
         });
     });
-};
 
 Observable.prototype.cacheToObject = function (obj: object, key: string | object) {
     let _key = key;
