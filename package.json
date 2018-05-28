@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "lib",
   "author": "sip",
-  "homepage": "https://github.com/winpzs/sip-lib/",
+  "homepage": "https://github.com/sip-dev/sip-lib/",
   "bugs": {
-    "url": "https://github.com/winpzs/sip-lib/issues"
+    "url": "https://github.com/sip-dev/sip-lib/issues"
   },
   "engines": {
     "node": ">= 4.2.1",
