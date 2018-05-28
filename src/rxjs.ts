@@ -1,30 +1,7 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Lib } from './lib';
 
 let undef;
-
-//#region cacheToObject
-
-// export declare function cacheToObject<T>(this: Observable<T>, obj: object, key: string | object): Observable<T>;
-export declare function toValue<T>(this: Observable<T>): T;
-// export declare function breakOff<T>(this: Observable<T>, callback: () => boolean): Observable<T>;
-
-declare module 'rxjs/Observable' {
-    interface Observable<T> {
-        // /**缓存到Object */
-        // cacheToObject: typeof cacheToObject;
-        /**返回值，异步无效 */
-        toValue: typeof toValue;
-        // /**中断 */
-        // breakOff: typeof breakOff
-    }
-}
-
-Observable.prototype.toValue = function () {
-    let value;
-    this.subscribe(item => value = item);
-    return value;
-};
 
 export const breakOff = (callback: () => boolean) => <T>(source: Observable<T>) =>
     new Observable<T>(observer => {

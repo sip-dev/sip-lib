@@ -1,5 +1,10 @@
 
 # 更新
+## 0.1.0
+
+* Update: rxjs 6.0.0
+* Update: typescript 2.7.2
+* Remove: rxjs toValue
 
 ## 0.0.2
 
